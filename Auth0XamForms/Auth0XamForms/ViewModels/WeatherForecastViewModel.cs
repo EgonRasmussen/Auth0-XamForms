@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Auth0XamForms.ViewModels
@@ -28,12 +30,17 @@ namespace Auth0XamForms.ViewModels
         async Task ExecuteLoadWeatherForecastsCommand()
         {
             IsBusy = true;
-            var baseAddress = "https://192.168.1.23:45469";
+            var baseAddress = "https://192.168.1.23:45471";
             var uri = new Uri($"{baseAddress}/WeatherForecast");
+
+            var accessToken = await SecureStorage.GetAsync("accessToken");
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             try
             {
                 HttpResponseMessage response = await _client.GetAsync(uri);
+                Debug.WriteLine("************* Status code: " + response.StatusCode);
 
                 if (response.IsSuccessStatusCode)
                 {

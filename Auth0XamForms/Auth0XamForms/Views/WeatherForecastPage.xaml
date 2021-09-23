@@ -4,7 +4,8 @@
              xmlns:model="clr-namespace:Auth0XamForms.Models"
              xmlns:local="clr-namespace:Auth0XamForms.ViewModels"
              x:DataType="local:WeatherForecastViewModel"
-             x:Class="Auth0XamForms.Views.WeatherForecastPage">
+             x:Class="Auth0XamForms.Views.WeatherForecastPage"
+             Title="WeatherForecastPage">
 
     <ContentPage.Content>
         <StackLayout>
