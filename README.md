@@ -9,7 +9,9 @@ Eksemplet er baseret på artiklen: [Authentication with Xamarin Forms and Auth0](
 
 #### Bemærk
 
+Testet med Android 10 API 29.
+
 Conveyor by Keyoti benyttes til at give mobilen/emulatoren adgang til webApi, som jo kører på Localhost. Husk at rette IP/portnummer til den benyttede i WeatherForecastViewModel.cs.
 
-Ved Multiple Startup konfigurationen er det bedst at lade Android starte op inden WebApi starter op.
+Ved Multiple Startup konfigurationen er det bedst at lade Android starte op inden WebApi starter op???
 
