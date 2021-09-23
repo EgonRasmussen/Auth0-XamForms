@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Auth0XamForms.ViewModels"
+             xmlns:converters="clr-namespace:Auth0XamForms.Converters"
+             mc:Ignorable="d"
+             x:Class="Auth0XamForms.Views.LoginPage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+            <Button 
+                Margin="0,10,0,0" 
+                Text="Sign In"
+                Command="{Binding LoginCommand}"
+                IsVisible="{Binding IsLoggedIn,  Converter={StaticResource InverseBooleanConverter}}"
+                TextColor="White" />
+            <Button 
+                Margin="0,10,0,0" 
+                Text="Sign Out"
+                Command="{Binding LogOutCommand}"
+                BackgroundColor="Red"
+                IsVisible="{Binding IsLoggedIn}"
+                TextColor="White" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
