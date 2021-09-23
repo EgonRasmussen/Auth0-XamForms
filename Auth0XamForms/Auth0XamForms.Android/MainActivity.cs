@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
+using Auth0.OidcClient;
 
 namespace Auth0XamForms.Droid
 {
@@ -23,18 +24,18 @@ namespace Auth0XamForms.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        protected override void OnNewIntent(Intent intent)  // Måske skal der vælges en anden klasse for Intent som base
+        protected override void OnNewIntent(Intent intent) 
         {
             base.OnNewIntent(intent);
 
-            Auth0.OidcClient.ActivityMediator.Instance.Send(intent.DataString);
+            ActivityMediator.Instance.Send(intent.DataString);
         }
     }
 }

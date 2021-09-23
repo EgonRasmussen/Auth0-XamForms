@@ -1,6 +1,7 @@
 ﻿using Auth0.OidcClient;
 using Auth0XamForms.Auth;
 using Auth0XamForms.Droid.Services;
+using IdentityModel.OidcClient;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -23,7 +24,8 @@ namespace Auth0XamForms.Droid.Services
 
         public async Task<AuthenticationResult> Authenticate()
         {
-            var auth0LoginResult = await _auth0Client.LoginAsync();// (new { audience = AuthConfig.Audience });
+            LoginResult auth0LoginResult = await _auth0Client.LoginAsync(new { audience = AuthConfig.Audience });
+
             AuthenticationResult authenticationResult;
 
             if (!auth0LoginResult.IsError)
