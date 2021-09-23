@@ -1,4 +1,6 @@
+using Api.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,17 +22,23 @@ namespace Api
         {
             services.AddControllers();
 
-            #region FROM AUTH0 QUICK START
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://eucsyd.eu.auth0.com/";
-                options.Audience = "https://localhost:5000/weatherforecast";
+                options.Authority = Configuration["Auth0:Authority"];
+                options.Audience = Configuration["Auth0:Audience"];
             });
-            #endregion
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:weatherforecast", policy => policy.Requirements.Add(new HasScopeRequirement("read:weatherforecast", Configuration["Auth0:Authority"])));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -44,8 +52,7 @@ namespace Api
 
             app.UseRouting();
 
-            app.UseAuthentication();    // Added
-
+            app.UseAuthentication();    
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    [Authorize("read:weatherforecast")]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -36,6 +36,18 @@ namespace Api.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        // This is a helper action. It allows you to easily view all the claims of the token.
+        [HttpGet("claims")]
+        public IActionResult Claims()
+        {
+            return Ok(User.Claims.Select(c =>
+                new
+                {
+                    c.Type,
+                    c.Value
+                }));
         }
     }
 }
