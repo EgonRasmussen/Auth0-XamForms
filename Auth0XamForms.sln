@@ -7,9 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0XamForms.Android", "Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0XamForms.iOS", "Auth0XamForms\Auth0XamForms.iOS\Auth0XamForms.iOS.csproj", "{8F444675-3648-4A93-A26A-FEF8B2CB45C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0XamForms", "Auth0XamForms\Auth0XamForms\Auth0XamForms.csproj", "{746EC1FD-B3B7-4A13-8E95-406C5B8C36E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Auth0XamForms", "Auth0XamForms\Auth0XamForms\Auth0XamForms.csproj", "{746EC1FD-B3B7-4A13-8E95-406C5B8C36E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{1A66A3B2-6814-4AE7-AEC3-84DD29EFC074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{1A66A3B2-6814-4AE7-AEC3-84DD29EFC074}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41262141-A204-4FC6-AE6B-B39CC538F428}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
