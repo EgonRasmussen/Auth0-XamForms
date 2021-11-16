@@ -15,6 +15,8 @@ Eksemplet er baseret på artiklen: [Authentication with Xamarin Forms and Auth0](
 
 #### Bemærk
 
+Login hos Auth0 med: ecr@eucsyd.dk og ???
+
 Testet med Android 11 API 30.
 
 Conveyor by Keyoti benyttes til at give mobilen/emulatoren adgang til webApi, som jo kører på Localhost. Husk at rette IP/portnummer til den benyttede i WeatherForecastViewModel.cs.

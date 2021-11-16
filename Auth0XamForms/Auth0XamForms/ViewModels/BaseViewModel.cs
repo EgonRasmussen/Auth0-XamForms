@@ -1,6 +1,4 @@
-﻿using Auth0XamForms.Models;
-using Auth0XamForms.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -10,7 +8,7 @@ namespace Auth0XamForms.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        //public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         bool isBusy = false;
         public bool IsBusy
@@ -24,6 +22,13 @@ namespace Auth0XamForms.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        bool _isLoggedIn;
+        public bool IsLoggedIn
+        {
+            get => _isLoggedIn;
+            set => SetProperty(ref _isLoggedIn, value);
         }
 
         protected bool SetProperty<T>(ref T backingStore, T value,

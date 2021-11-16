@@ -3,20 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:Auth0XamForms.ViewModels"
-             xmlns:converters="clr-namespace:Auth0XamForms.Converters"
              mc:Ignorable="d"
              x:Class="Auth0XamForms.Views.LoginPage"
+             xmlns:converters1="clr-namespace:Auth0XamForms.Converters" 
+             xmlns:vm1="clr-namespace:Auth0XamForms.ViewModels"
              Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            <converters1:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.BindingContext>
-        <vm:LoginViewModel />
+        <vm1:LoginViewModel />
     </ContentPage.BindingContext>
 
     <ScrollView>

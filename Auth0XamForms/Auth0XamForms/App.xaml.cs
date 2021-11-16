@@ -1,8 +1,5 @@
-﻿using Auth0XamForms.Services;
-using Auth0XamForms.Views;
-using System;
+﻿
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Auth0XamForms
 {
@@ -13,7 +10,7 @@ namespace Auth0XamForms
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+           // DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 

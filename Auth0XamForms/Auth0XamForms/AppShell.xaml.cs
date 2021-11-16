@@ -1,23 +1,18 @@
 ﻿using Auth0XamForms.ViewModels;
-using Auth0XamForms.Views;
 using System;
-using System.Collections.Generic;
-using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace Auth0XamForms
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
+        WeatherForecastViewModel vm;
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-        }
-
-        private async void OnMenuItemClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//LoginPage");
+            vm = new WeatherForecastViewModel();
+            BindingContext = vm;
+                
         }
     }
 }

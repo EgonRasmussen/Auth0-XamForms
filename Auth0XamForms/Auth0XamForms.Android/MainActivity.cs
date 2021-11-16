@@ -14,6 +14,7 @@ namespace Auth0XamForms.Droid
         DataScheme = "com.companyname.auth0xamforms",
         DataHost = "eucsyd.eu.auth0.com",
         DataPathPrefix = "/android/com.companyname.auth0xamforms/callback")]
+
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

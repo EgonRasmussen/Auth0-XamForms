@@ -1,4 +1,6 @@
-﻿using Auth0XamForms.Models;
+﻿using Auth0XamForms.Auth;
+using Auth0XamForms.Models;
+using Auth0XamForms.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,8 @@ namespace Auth0XamForms.ViewModels
     public class WeatherForecastViewModel : BaseViewModel
     {
         HttpClient _client;
+        HttpClientHandler httpClientHandler = new HttpClientHandler();
+        
         public ObservableCollection<WeatherForecast> WeatherForecasts { get; }
         public Command LoadWeatherForecastsCommand { get; }
 
@@ -23,14 +27,18 @@ namespace Auth0XamForms.ViewModels
             Title = "WeatherForecasts";
             WeatherForecasts = new ObservableCollection<WeatherForecast>();
             LoadWeatherForecastsCommand = new Command(async () => await ExecuteLoadWeatherForecastsCommand());
+            
 
-            _client = new HttpClient();
+#if DEBUG
+            httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
+#endif
+            _client = new HttpClient(httpClientHandler);
         }
 
         async Task ExecuteLoadWeatherForecastsCommand()
         {
             IsBusy = true;
-            var baseAddress = "https://192.168.1.23:45471";
+            var baseAddress = "https://10.0.2.2:5000";
             var uri = new Uri($"{baseAddress}/WeatherForecast");
 
             var accessToken = await SecureStorage.GetAsync("accessToken");
@@ -66,5 +74,7 @@ namespace Auth0XamForms.ViewModels
         {
             IsBusy = true;
         }
+
+        
     }
 }
