@@ -4,6 +4,5 @@
     {
         public const string Domain = "eucsyd.eu.auth0.com";
         public const string ClientId = "SamcgMljPCrHhr0sFIwj5w8zC7Xs8I69";
-        public const string Audience = "https://localhost:5000/weatherforecast";
     }
 }

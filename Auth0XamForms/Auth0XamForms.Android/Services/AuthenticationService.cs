@@ -2,7 +2,6 @@
 using Auth0XamForms.Auth;
 using Auth0XamForms.Droid.Services;
 using IdentityModel.OidcClient;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -21,37 +20,10 @@ namespace Auth0XamForms.Droid.Services
                 ClientId = AuthConfig.ClientId
             });
         }
-        public AuthenticationResult AuthenticationResult { get; private set; }
 
-        public async Task<AuthenticationResult> Authenticate()
+        public Task<LoginResult> Authenticate()
         {
-            LoginResult auth0LoginResult = await _auth0Client.LoginAsync(new { audience = AuthConfig.Audience });
-
-            AuthenticationResult authenticationResult;
-
-            if (!auth0LoginResult.IsError)
-            {
-                authenticationResult = new AuthenticationResult()
-                {
-                    AccessToken = auth0LoginResult.AccessToken,
-                    IdToken = auth0LoginResult.IdentityToken,
-                    UserClaims = auth0LoginResult.User.Claims
-                };
-                Debug.WriteLine("-------------------------------------------");
-                Debug.WriteLine($"AccessToken: {auth0LoginResult.AccessToken}");
-                Debug.WriteLine($"IdentityToken: {auth0LoginResult.IdentityToken}");
-                Debug.WriteLine("Scopes: ");
-                foreach (var item in auth0LoginResult.User.Claims)
-                {
-                    Debug.Write($", {item}");
-                }
-                Debug.WriteLine("-------------------------------------------");
-            }
-            else
-                authenticationResult = new AuthenticationResult(auth0LoginResult.IsError, auth0LoginResult.Error);
-
-            AuthenticationResult = authenticationResult;
-            return authenticationResult;
+            return _auth0Client.LoginAsync();
         }
 
         public async Task Logout()

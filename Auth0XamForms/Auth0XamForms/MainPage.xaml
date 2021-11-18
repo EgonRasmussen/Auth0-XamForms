@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Auth0XamForms.MainPage">
+
+    <ScrollView>
+        <StackLayout Margin="40">
+            <Button Text="Login" x:Name="LoginButton" Clicked="LoginButton_Clicked" />
+            <Button Text="Logout" x:Name="LogoutButton" Clicked="LogoutButton_Clicked" />
+            <Label x:Name="ResultLabel" LineBreakMode="WordWrap" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

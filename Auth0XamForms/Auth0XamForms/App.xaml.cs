@@ -1,5 +1,4 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Auth0XamForms
 {
@@ -10,8 +9,7 @@ namespace Auth0XamForms
         {
             InitializeComponent();
 
-           // DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
