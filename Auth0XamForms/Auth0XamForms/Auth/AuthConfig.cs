@@ -2,7 +2,7 @@
 {
     public static class AuthConfig
     {
-        public const string Domain = "eucsyd.eu.auth0.com";
-        public const string ClientId = "SamcgMljPCrHhr0sFIwj5w8zC7Xs8I69";
+        public const string Domain = "";    // Her indsættes Domain Name fra Auth0
+        public const string ClientId = "";  // Her indsættes Client ID fra Auth0
     }
 }
