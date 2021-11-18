@@ -25,7 +25,7 @@ namespace Auth0XamForms.ViewModels
                     IsLoggedIn = true;
                 }
 
-                await Shell.Current.GoToAsync($"//{nameof(WeatherForecastPage)}");
+                await Shell.Current.GoToAsync($"//WeatherForecast");
             }));
 
         Command logoutCommand;

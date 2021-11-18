@@ -14,9 +14,10 @@ namespace Api.Auth
 
             // Split the scopes string into an array
             var scopes = context.User.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer).Value.Split(' ');
+            // Permissions assigned in Auth0 are not handled as scopes
             var permissions = context.User.FindFirst(c => c.Type == "permissions" && c.Issuer == requirement.Issuer);
 
-            // Permissions assigned in Auth0 are not handled as scopes
+            // Permissions are handled as scopes
             string[] scopeAll = permissions is not null ? scopes.Concat(permissions.Value.Split(' ')).ToArray() : scopes;
  
             // Succeed if the scope array contains the required scope

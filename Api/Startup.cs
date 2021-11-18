@@ -32,9 +32,11 @@ namespace Api
                 options.Audience = Configuration["Auth0:Audience"];
             });
 
+            // A scope is converted to a policy and can then be used in Controller as [Authorize("read:weatherforecast")]
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:weatherforecast", policy => policy.Requirements.Add(new HasScopeRequirement("read:weatherforecast", Configuration["Auth0:Authority"])));
+                options.AddPolicy("read:weatherforecast", policy => 
+                    policy.Requirements.Add(new HasScopeRequirement("read:weatherforecast", Configuration["Auth0:Authority"])));
             });
 
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
@@ -53,7 +55,7 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthorization();     // Added!
 
             app.UseEndpoints(endpoints =>
             {

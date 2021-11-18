@@ -79,10 +79,10 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="About" Icon="icon_about.png">
-        <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent Route="About" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
     <FlyoutItem Title="WeatherForecasts" Icon="icon_feed.png">
-        <ShellContent Route="WeatherForecastPage" ContentTemplate="{DataTemplate local:WeatherForecastPage}" />
+        <ShellContent Route="WeatherForecast" ContentTemplate="{DataTemplate local:WeatherForecastPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Login/Logout" Icon="icon_feed.png">
         <ShellContent Route="Login" ContentTemplate="{DataTemplate local:LoginPage}" />
