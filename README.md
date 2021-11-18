@@ -38,6 +38,12 @@ I konfigurationen af Api hos Auth0, skal man enable *RBAC* samt *Add Permissions
 
 Desuden skal man ind under fanen *Permissions*. Skriv et navn på *Permission (Scope)*, f.eks. `read:weatherforecast` og en evt. beskrivelse. Tryk *Add*.
 
+&nbsp;
+
+## Debug af applikationen
+
+I Solutions sættes WebApi til at starte først, efterfulgt af Android App'en.
+
 
 
 
