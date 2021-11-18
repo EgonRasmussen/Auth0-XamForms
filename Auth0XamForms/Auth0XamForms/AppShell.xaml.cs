@@ -1,6 +1,4 @@
 ﻿using Auth0XamForms.ViewModels;
-using System;
-using System.Threading.Tasks;
 
 namespace Auth0XamForms
 {
@@ -12,7 +10,6 @@ namespace Auth0XamForms
             InitializeComponent();
             vm = new WeatherForecastViewModel();
             BindingContext = vm;
-                
         }
     }
 }

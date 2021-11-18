@@ -1,5 +1,4 @@
 ﻿using Auth0XamForms.Auth;
-using Auth0XamForms.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

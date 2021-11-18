@@ -73,8 +73,6 @@ namespace Auth0XamForms.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
-        }
-
-        
+        }     
     }
 }
