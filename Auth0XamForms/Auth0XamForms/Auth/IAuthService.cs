@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using IdentityModel.OidcClient;
+using System.Threading.Tasks;
 
 namespace Auth0XamForms.Auth
 {
     public interface IAuthService
     {
-        Task<AuthenticationResult> Authenticate();
+        Task<LoginResult> Authenticate();
         Task Logout();
     }
 }

@@ -11,9 +11,9 @@ namespace Auth0XamForms.Droid
     [IntentFilter(
         new[] { Intent.ActionView },
         Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-        DataScheme = "com.companyname.auth0xamforms",
-        DataHost = "eucsyd.eu.auth0.com",
-        DataPathPrefix = "/android/com.companyname.auth0xamforms/callback")]
+        DataScheme = "com.companyname.auth0xamforms",   // Her indsættes Package Name fra Manifestet
+        DataHost = "eucsyd.eu.auth0.com",               // Her indsættes Domain Name fra Auth0
+        DataPathPrefix = "/android/com.companyname.auth0xamforms/callback")]    // Her indsættes: /android/YOUR_ANDROID_PACKAGE_NAME/callback
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -32,6 +32,7 @@ namespace Auth0XamForms.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
+        // Added
         protected override void OnNewIntent(Intent intent) 
         {
             base.OnNewIntent(intent);
