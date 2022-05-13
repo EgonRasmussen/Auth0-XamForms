@@ -8,7 +8,25 @@ man kører i Debug mode. Det giver mulighed for at kopiere Access Token over i f
 
 Eksemplet benytter `IdentityModel.OidcClient` og ikke Auth0's egen udgave, fordi den ikke håndterer at fjerne login pagen korrekt.
 
-Her ses et eksempel med Duende Identityserver:
+Her ses et eksempel af demo.duendesoftware.com som identityprovider, hvor der anvendes følgende konfiguration:
+
+```c#
+var options = new OidcClientOptions
+{
+    Authority = "https://demo.duendesoftware.com",
+    ClientId = "interactive.public",
+    Scope = "openid profile email api offline_access",
+    RedirectUri = "com.companyname.auth0xamforms://callback",
+    Browser = browser
+};
+```
+
+BaseAdress: https://demo.duendesoftware.com
+
+API kald: *api/test*
+
+I næste afsnit forklares hvordan man i stedet for benytter Auth0:
+
 
 ![Screenshot 1652444681](images/Screenshot_1652444681.png).........![Screenshot 1652444689](images/Screenshot_1652444689.png)
 &nbsp;
@@ -35,23 +53,6 @@ Der er også en knap DOWNLOAD SAMPLE og VIEW ON GITHUB, men disse eksempler går
 
 Tilføj Nuget pakken:
 - IdentityModel.OidcClient, version 5.0.0
-
-Ved brug af demo.duendesoftware.com som identityprovider, anvendes følgende konfiguration:
-
-```c#
-var options = new OidcClientOptions
-{
-    Authority = "https://demo.duendesoftware.com",
-    ClientId = "interactive.public",
-    Scope = "openid profile email api offline_access",
-    RedirectUri = "com.companyname.auth0xamforms://callback",
-    Browser = browser
-};
-```
-
-BaseAdress: https://demo.duendesoftware.com
-
-API kaldet ændres til: *api/test*
 
 &nbsp;
 
