@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth0XamForms.Android", "Auth0XamForms\Auth0XamForms.Android\Auth0XamForms.Android.csproj", "{8041E441-B30A-4898-BBD1-0731ACFC14CD}"
 EndProject

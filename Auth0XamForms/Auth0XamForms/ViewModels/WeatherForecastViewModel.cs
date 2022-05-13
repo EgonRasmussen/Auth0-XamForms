@@ -1,78 +1,81 @@
 ﻿using Auth0XamForms.Auth;
 using Auth0XamForms.Models;
-using Auth0XamForms.Views;
-using Newtonsoft.Json;
+using IdentityModel.OidcClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace Auth0XamForms.ViewModels
-{
-    public class WeatherForecastViewModel : BaseViewModel
-    {
-        HttpClient _client;
-        HttpClientHandler httpClientHandler = new HttpClientHandler();
-        
-        public ObservableCollection<WeatherForecast> WeatherForecasts { get; }
-        public Command LoadWeatherForecastsCommand { get; }
+namespace Auth0XamForms.ViewModels;
 
-        public WeatherForecastViewModel()
-        {
-            Title = "WeatherForecasts";
-            WeatherForecasts = new ObservableCollection<WeatherForecast>();
-            LoadWeatherForecastsCommand = new Command(async () => await ExecuteLoadWeatherForecastsCommand());
-            
+public class WeatherForecastViewModel : BaseViewModel
+{
+    OidcClient _client;
+    LoginResult _result;
+
+    HttpClient _httpClient;
+    HttpClientHandler httpClientHandler = new HttpClientHandler();
+    
+    public ObservableCollection<WeatherForecast> WeatherForecasts { get; }
+    
+
+    public WeatherForecastViewModel()
+    {
+        Title = "WeatherForecasts";
+        WeatherForecasts = new ObservableCollection<WeatherForecast>();
+        
 
 #if DEBUG
-            httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
+        httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
 #endif
-            _client = new HttpClient(httpClientHandler);
-        }
+        _httpClient = new HttpClient(httpClientHandler);
+    }
 
-        async Task ExecuteLoadWeatherForecastsCommand()
+    private Command loadWeatherForecastsCommand;
+    public ICommand LoadWeatherForecastsCommand => loadWeatherForecastsCommand ??= new Command(async () => await ExecuteLoadWeatherForecastsCommand());
+    async Task ExecuteLoadWeatherForecastsCommand()
+    {
+        IsBusy = true;
+        var uri = new Uri($"{AuthConfig.BaseUrl}/WeatherForecast");
+
+        var accessToken = await SecureStorage.GetAsync("accessToken");
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+        try
         {
-            IsBusy = true;
-            var baseAddress = "https://10.0.2.2:5000";
-            var uri = new Uri($"{baseAddress}/WeatherForecast");
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
+            Debug.WriteLine("************* Status code: " + response.StatusCode);
 
-            var accessToken = await SecureStorage.GetAsync("accessToken");
-
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
-            try
+            if (response.IsSuccessStatusCode)
             {
-                HttpResponseMessage response = await _client.GetAsync(uri);
-                Debug.WriteLine("************* Status code: " + response.StatusCode);
+                string content = await response.Content.ReadAsStringAsync();
+                var data = JsonSerializer.Deserialize<List<WeatherForecast>>(content);
 
-                if (response.IsSuccessStatusCode)
+                WeatherForecasts.Clear();
+                foreach (var weatherForecast in data)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    var data = JsonConvert.DeserializeObject<List<WeatherForecast>>(content);
-
-                    WeatherForecasts.Clear();
-                    foreach (var weatherForecast in data)
-                    {
-                        WeatherForecasts.Add(weatherForecast);
-                    }
+                    WeatherForecasts.Add(weatherForecast);
                 }
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(@"\tERROR {0}", ex.Message);
-            }
-
-            IsBusy = false;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(@"\tERROR {0}", ex.Message);
         }
 
-        public void OnAppearing()
-        {
-            IsBusy = true;
-        }     
+        IsBusy = false;
     }
+
+    public void OnAppearing()
+    {
+        IsBusy = true;
+    }     
 }

@@ -1,53 +1,48 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Api.Controllers
+namespace Api.Controllers;
+
+[Authorize("read:weatherforecast")]
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
 {
-    [Authorize("read:weatherforecast")]
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    private static readonly string[] Summaries = new[]
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
+    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    {
+        _logger = logger;
+    }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+    [HttpGet]
+    public IEnumerable<WeatherForecast> Get()
+    {
+        _logger.LogInformation("*********** GET is called");
+        var rng = new Random();
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
-            _logger.LogInformation("*********** GET is called");
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = rng.Next(-20, 55),
+            Summary = Summaries[rng.Next(Summaries.Length)]
+        })
+        .ToArray();
+    }
+
+    // This is a helper action. It allows you to easily view all the claims of the token.
+    [HttpGet("claims")]
+    public IActionResult Claims()
+    {
+        return Ok(User.Claims.Select(c =>
+            new
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
-        }
-
-        // This is a helper action. It allows you to easily view all the claims of the token.
-        [HttpGet("claims")]
-        public IActionResult Claims()
-        {
-            return Ok(User.Claims.Select(c =>
-                new
-                {
-                    c.Type,
-                    c.Value
-                }));
-        }
+                c.Type,
+                c.Value
+            }));
     }
 }
