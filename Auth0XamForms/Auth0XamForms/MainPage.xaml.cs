@@ -26,15 +26,15 @@ namespace Auth0XamForms
 
             var options = new OidcClientOptions
             {
-                Authority = "https://demo.duendesoftware.com",
-                ClientId = "interactive.public",
-                Scope = "openid profile email api offline_access",
-                RedirectUri = "com.companyname.auth0xamforms://callback",
+                Authority = AuthConfig.Domain,
+                ClientId = AuthConfig.ClientId,
+                Scope = AuthConfig.Scopes,
+                RedirectUri = AuthConfig.RedirectUri,
                 Browser = browser
             };
 
             _client = new OidcClient(options);
-            _apiClient.Value.BaseAddress = new Uri("https://demo.duendesoftware.com");
+            _apiClient.Value.BaseAddress = new Uri(AuthConfig.WebApi);
         }
 
         private async void Login_Clicked(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace Auth0XamForms
             // Ved brug af Auth0: Nødvendigt at sende audience (aud) med for at få en AccessToken i form af en JWT
             var audience = new Dictionary<string, string>
             {
-                { "audience", "https://test" }
+                { "audience", AuthConfig.Audience }
             };
 
             var loginRequest = new LoginRequest() { FrontChannelExtraParameters = new Parameters(audience) };
