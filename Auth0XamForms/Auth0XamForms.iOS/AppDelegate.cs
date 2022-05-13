@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace Auth0XamForms.iOS
 {
@@ -23,6 +20,9 @@ namespace Auth0XamForms.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            DependencyService.Register<ASWebAuthenticationSessionBrowser>();    // Added
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

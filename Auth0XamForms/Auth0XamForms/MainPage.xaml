@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+             ios:Page.UseSafeArea="true"
              x:Class="Auth0XamForms.MainPage">
 
     <ScrollView>
-        <StackLayout Margin="40">
-            <Button Text="Login" x:Name="LoginButton" Clicked="LoginButton_Clicked" />
-            <Button Text="Logout" x:Name="LogoutButton" Clicked="LogoutButton_Clicked" />
-            <Label x:Name="ResultLabel" LineBreakMode="WordWrap" />
+        <StackLayout Padding="20" Margin="0,20,0,0">
+            <Button Text="Login" x:Name="Login" Clicked="Login_Clicked" Padding="20" />
+            <Button Text="Call Api" x:Name="CallApi" Clicked="CallApi_Clicked" Padding="20" />
+            <Label x:Name="OutputText"
+                VerticalOptions="EndAndExpand" 
+                HorizontalOptions="FillAndExpand" />
         </StackLayout>
     </ScrollView>
 </ContentPage>
