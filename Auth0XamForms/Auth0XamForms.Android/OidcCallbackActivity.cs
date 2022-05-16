@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.OS;
 using Android.Util;
+using Auth0XamForms.Auth;
 using System;
 
 namespace Auth0XamForms.Droid
@@ -9,7 +10,7 @@ namespace Auth0XamForms.Droid
     [Activity(Label = "OidcCallbackActivity")]
     [IntentFilter(new[] { Intent.ActionView },
           Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-          DataScheme = "com.companyname.auth0xamforms")]
+          DataScheme = AuthConfig.PackageName)]
 
     public class OidcCallbackActivity : Activity
     {
