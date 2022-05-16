@@ -19,10 +19,10 @@ public class LoginViewModel : BaseViewModel
         var browser = DependencyService.Get<IBrowser>();
         var options = new OidcClientOptions
         {
-            Authority = AuthConfig.Domain,
+            Authority = $"https://{AuthConfig.Domain}",
             ClientId = AuthConfig.ClientId,
             Scope = AuthConfig.Scopes,
-            RedirectUri = AuthConfig.RedirectUri,
+            RedirectUri = $"{AuthConfig.PackageName}://{AuthConfig.Domain}/android/{AuthConfig.PackageName}/callback",
             Browser = browser
         };
 
@@ -63,6 +63,7 @@ public class LoginViewModel : BaseViewModel
         {
             SecureStorage.Remove("accessToken");
             IsLoggedIn = false;
+            System.Console.WriteLine("Du er nu logget ud og AccessToken er slettet!");
             await Shell.Current.GoToAsync($"//About");
         });
 }

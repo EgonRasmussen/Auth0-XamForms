@@ -3,9 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:Auth0XamForms.Models"
              xmlns:local="clr-namespace:Auth0XamForms.ViewModels"
+             xmlns:converters="clr-namespace:Auth0XamForms.Converters"
              x:DataType="local:WeatherForecastViewModel"
              x:Class="Auth0XamForms.Views.WeatherForecastPage"
              Title="WeatherForecastPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DatetimeToStringConverter x:Key="datetimeToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout>
@@ -16,7 +23,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:WeatherForecast">
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Date }" 
+                                <Label Text="{Binding Date, Converter={StaticResource datetimeToStringConverter}}" 
                                     LineBreakMode="NoWrap" 
                                     Style="{DynamicResource ListItemTextStyle}" 
                                     FontSize="16" />

@@ -17,21 +17,16 @@ namespace Auth0XamForms.ViewModels;
 
 public class WeatherForecastViewModel : BaseViewModel
 {
-    OidcClient _client;
-    LoginResult _result;
-
     HttpClient _httpClient;
     HttpClientHandler httpClientHandler = new HttpClientHandler();
     
     public ObservableCollection<WeatherForecast> WeatherForecasts { get; }
-    
 
     public WeatherForecastViewModel()
     {
         Title = "WeatherForecasts";
         WeatherForecasts = new ObservableCollection<WeatherForecast>();
         
-
 #if DEBUG
         httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
 #endif
