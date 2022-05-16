@@ -57,7 +57,7 @@ public class WeatherForecastViewModel : BaseViewModel
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                var data = JsonSerializer.Deserialize<List<WeatherForecast>>(content);
+                var data = JsonSerializer.Deserialize<List<WeatherForecast>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 WeatherForecasts.Clear();
                 foreach (var weatherForecast in data)

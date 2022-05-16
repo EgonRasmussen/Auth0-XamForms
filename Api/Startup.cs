@@ -1,6 +1,4 @@
-using Api.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Api;
 
@@ -23,18 +21,14 @@ public class Startup
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            options.Authority = Configuration["Auth0:Authority"];
+            options.Authority = $"https://{Configuration["Auth0:Authority"]}";
             options.Audience = Configuration["Auth0:Audience"];
         });
 
-        // A scope is converted to a policy and can then be used in Controller as [Authorize("read:weatherforecast")]
-        services.AddAuthorization(options =>
+        services.AddAuthorization(o =>
         {
-            options.AddPolicy("read:weatherforecast", policy =>
-                policy.Requirements.Add(new HasScopeRequirement("read:weatherforecast", Configuration["Auth0:Authority"])));
+            o.AddPolicy("ReadPolicy", p => p.RequireAuthenticatedUser().RequireClaim("permissions", "read:weatherforecast"));
         });
-
-        services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
     }
 

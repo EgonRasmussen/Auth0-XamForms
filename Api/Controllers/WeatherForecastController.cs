@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
-[Authorize("read:weatherforecast")]
+[Authorize("ReadPolicy")]
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase

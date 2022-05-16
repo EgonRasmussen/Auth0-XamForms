@@ -3,6 +3,7 @@ using IdentityModel.Client;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using System.Collections.Generic;
+using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -20,8 +21,8 @@ public class LoginViewModel : BaseViewModel
         {
             Authority = AuthConfig.Domain,
             ClientId = AuthConfig.ClientId,
-            Scope = "openid profile email api offline_access todo:write",
-            RedirectUri = $"com.companyname.auth0xamforms://eucsyd.eu.auth0.com/android/com.companyname.auth0xamforms/callback",
+            Scope = AuthConfig.Scopes,
+            RedirectUri = AuthConfig.RedirectUri,
             Browser = browser
         };
 
@@ -29,7 +30,7 @@ public class LoginViewModel : BaseViewModel
     }
 
     Command loginCommand;
-    public Command LoginCommand => loginCommand ??= new Command(async () =>
+    public ICommand LoginCommand => loginCommand ??= new Command(async () =>
         {
             // Nødvendigt at sende audience (aud) med for at få en AccessToken i form af en JWT
             var audience = new Dictionary<string, string>
@@ -58,9 +59,10 @@ public class LoginViewModel : BaseViewModel
         });
 
     Command logoutCommand;
-    public Command LogoutCommand => logoutCommand ??= new Command(() =>
+    public ICommand LogoutCommand => logoutCommand ??= new Command(async () =>
         {
             SecureStorage.Remove("accessToken");
             IsLoggedIn = false;
+            await Shell.Current.GoToAsync($"//About");
         });
 }
