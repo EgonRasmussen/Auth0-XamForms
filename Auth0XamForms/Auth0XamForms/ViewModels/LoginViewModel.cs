@@ -52,6 +52,7 @@ public class LoginViewModel : BaseViewModel
             if (!_result.IsError)
             {
                 await SecureStorage.SetAsync("accessToken", _result.AccessToken);
+                await SecureStorage.SetAsync("identityToken", _result.IdentityToken);
                 IsLoggedIn = true;
             }
 
