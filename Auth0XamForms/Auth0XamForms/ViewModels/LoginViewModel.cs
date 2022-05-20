@@ -52,8 +52,12 @@ public class LoginViewModel : BaseViewModel
             if (!_result.IsError)
             {
                 await SecureStorage.SetAsync("accessToken", _result.AccessToken);
-                await SecureStorage.SetAsync("identityToken", _result.IdentityToken);
+
                 IsLoggedIn = true;
+                //IsInReadRole = _result.User.IsInRole("ReadWriteRole");
+
+                var result = _result.User.FindFirst(r => r.Value == "ReadWriteRole");
+                App.IsInReadRole = result != null ? true : false;
             }
 
             await Shell.Current.GoToAsync($"//WeatherForecast");

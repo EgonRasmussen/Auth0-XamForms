@@ -33,10 +33,25 @@ public class WeatherForecastViewModel : BaseViewModel
         _httpClient = new HttpClient(httpClientHandler);
     }
 
+
+
     private Command loadWeatherForecastsCommand;
-    public ICommand LoadWeatherForecastsCommand => loadWeatherForecastsCommand ??= new Command(async () => await ExecuteLoadWeatherForecastsCommand());
+    public ICommand LoadWeatherForecastsCommand => loadWeatherForecastsCommand ??= new Command(async () => await ExecuteLoadWeatherForecastsCommand(), () => CanLoadWeatherForecastsCommand());
+
+    private bool CanLoadWeatherForecastsCommand()
+    {   
+        return true;
+    }
+
     async Task ExecuteLoadWeatherForecastsCommand()
     {
+        if (!App.IsInReadRole)
+        {
+            WeatherForecasts.Clear();
+            IsBusy = false;
+            return;
+        }
+
         IsBusy = true;
         var uri = new Uri($"{AuthConfig.BaseUrl}/WeatherForecast");
 

@@ -40,6 +40,48 @@ Desuden skal man ind under fanen *Permissions*. Skriv et navn på *Permission (Sc
 
 &nbsp;
 
+## Permissions og Roles
+
+I Auth0 dashpanel for WebAPI udføres følgende:
+
+#### Settings
+- Enable RBAC
+- Add Permissions in the Access Token
+
+#### Permissions og Roles
+- Opret en Permission kaldet `todo:read` 
+- Opret rollen `ReadOnlyRole` og tilføj `todo:read` permission 
+- Gør brugeren ecr@live.dk til medlem af rollen `ReadOnlyRole`
+- 
+- Opret en Permission kaldet `todo:write` 
+- Opret rollen `ReadWriteRole` og tilføj både `todo:read` og `todo:write` permissions
+- Gør brugeren ecr@live.dk til medlem af rollen `ReadWriteRole`
+
+&nbsp;
+
+### Map Roles ind i IDtoken
+
+I Auth0's dashpanel vælges: *Action | Flows | Login*. I højre side klikkes på *Add Action | Custom | Create Action*. Kald den **RolesToIDtokenAction**. 
+Kopier script ind herfra: [Add user roles to ID and Access tokens](https://auth0.com/docs/customize/actions/flows-and-triggers/login-flow#add-user-roles-to-id-and-access-tokens)
+Indsæt følgende som namespace: http://schemas.microsoft.com/ws/2008/06/identity/claims/role
+
+```js
+exports.onExecutePostLogin = async (event, api) => {
+  const namespace = 'http://schemas.microsoft.com/ws/2008/06/identity/claims';
+  if (event.authorization) {
+    api.idToken.setCustomClaim(`${namespace}/role`, event.authorization.roles);
+  }
+}
+```
+
+Deploy. Træk Action ind i flowet.
+
+Desværre fungerer metoden `IsInRole(string rolename)` ikke i Xamarin Forms, så her skal man selv lave
+noget logik, der søger efter om den pågældende rolle findes som en claim i IdentityToken. Et simpelt
+eksempel er vist i LoginViewModel i eksemplet.
+
+&nbsp;
+
 ## Debug af applikationen
 
 I Solutions sættes WebApi til at starte først, efterfulgt af Android App'en.
