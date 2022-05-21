@@ -1,6 +1,5 @@
 ﻿using Auth0XamForms.Auth;
 using Auth0XamForms.Models;
-using IdentityModel.OidcClient;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,14 +18,14 @@ public class WeatherForecastViewModel : BaseViewModel
 {
     HttpClient _httpClient;
     HttpClientHandler httpClientHandler = new HttpClientHandler();
-    
+
     public ObservableCollection<WeatherForecast> WeatherForecasts { get; }
 
     public WeatherForecastViewModel()
     {
         Title = "WeatherForecasts";
         WeatherForecasts = new ObservableCollection<WeatherForecast>();
-        
+
 #if DEBUG
         httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate, chain, sslPolicyErrors) => true;
 #endif
@@ -72,5 +71,5 @@ public class WeatherForecastViewModel : BaseViewModel
     public void OnAppearing()
     {
         IsBusy = true;
-    }     
+    }
 }

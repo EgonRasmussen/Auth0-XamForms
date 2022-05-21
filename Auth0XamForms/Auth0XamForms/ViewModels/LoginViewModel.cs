@@ -3,6 +3,7 @@ using IdentityModel.Client;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using System.Collections.Generic;
+using System.Text.Encodings.Web;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -23,6 +24,7 @@ public class LoginViewModel : BaseViewModel
             ClientId = AuthConfig.ClientId,
             Scope = AuthConfig.Scopes,
             RedirectUri = $"{AuthConfig.PackageName}://{AuthConfig.Domain}/android/{AuthConfig.PackageName}/callback",
+            PostLogoutRedirectUri = AuthConfig.PostLogoutRedirectUri,           
             Browser = browser
         };
 
@@ -62,9 +64,17 @@ public class LoginViewModel : BaseViewModel
     Command logoutCommand;
     public ICommand LogoutCommand => logoutCommand ??= new Command(async () =>
         {
-            SecureStorage.Remove("accessToken");
-            IsLoggedIn = false;
-            System.Console.WriteLine("Du er nu logget ud og AccessToken er slettet!");
-            await Shell.Current.GoToAsync($"//About");
+            // Med credit til Sofus S.
+            var url = $"https://{AuthConfig.Domain}/v2/logout?client_id={AuthConfig.ClientId}&returnTo={UrlEncoder.Default.Encode(_client.Options.PostLogoutRedirectUri)}";
+            var browserOptions = new BrowserOptions(url, _client.Options.PostLogoutRedirectUri ?? string.Empty);
+            var res = await _client.Options.Browser.InvokeAsync(browserOptions);
+
+            if (!res.IsError)
+            {
+                SecureStorage.Remove("accessToken");
+                IsLoggedIn = false;
+                System.Console.WriteLine("Du er nu logget ud og AccessToken er slettet!");
+                await Shell.Current.GoToAsync($"//About");
+            }      
         });
 }
