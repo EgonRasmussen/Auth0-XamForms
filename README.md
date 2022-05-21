@@ -32,13 +32,6 @@ I controlleren kan man nu tilføje `[Authorize]` til controller-klassen eller til
 
 &nbsp;
 
-## Oprettelse i Auth0 med Scope
-
-I konfigurationen af Api hos Auth0, skal man enable *RBAC* samt *Add Permissions in the Access token*.
-
-Desuden skal man ind under fanen *Permissions*. Skriv et navn på *Permission (Scope)*, f.eks. `read:weatherforecast` og en evt. beskrivelse. Tryk *Add*.
-
-&nbsp;
 
 ## Debug af applikationen
 
