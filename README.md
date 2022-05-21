@@ -35,8 +35,21 @@ I controlleren kan man nu tilføje `[Authorize]` til controller-klassen eller til
 
 ## Debug af applikationen
 
-I Solutions sættes WebApi til at starte først, efterfulgt af Android App'en.
+I Solutions sættes WebApi til at starte først, efterfulgt af enten Android eller iOS projektet.
 
+#### Android Emulator 
 
+Virker out of the box med 10.0.2.2:5000 som WebApi Url (routes automatisk til localhost, som Api kører på)
+
+#### Fysisk Android/iOS Phone og iOS Emulator
+
+WebApi'ets adresse skal ændres til maskinens IP-nummer, fordi localhost jo er selve telefonen. Det sker i filen launchSettings.json i WebApi. Sæt "applicationUrl": "https://192.168.1.23:5000" eller hvad din maskine nu kører på. Men der skal også laves adgang i Firewall'en:
+
+1. Open Windows 'Start' and type WF.msc.
+2. Click 'Inbound Rules' on the left.
+3. Click 'New Rules' on the right.
+4. Choose 'Port' in the new dialog, then 'Next'.
+5. Select TCP, and enter the port from the Remote URL next to 'Specific local ports' (5000), then 'Next'.
+6. Next, and next (you may want to disable 'Public'), give it a name like 'WebApi'.
 
 
