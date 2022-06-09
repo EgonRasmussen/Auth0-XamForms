@@ -1,7 +1,7 @@
 ﻿# 1.SimpleLogin
 
 ## Beskrivelse
-Demonstrerer den simpleste måde at benytte IdentityServer til at lave login på en Xamarin Form app.
+Demonstrerer den simpleste måde at lave Authentication og Authorization med OIDC på en Xamarin Forms app med IdentityServer som AuthorizationServer.
 
 Når brugeren er logget ind, vises en velkomst, ID Token, Access Token og brugerens claims Bemærk at alle data også udskrives til Output vinduet når
 man kører i Debug mode. Det giver mulighed for at kopiere Access Token over i f.eks [jwt.io](jwt.io) for nærmere inspektion.
