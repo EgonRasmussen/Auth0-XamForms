@@ -64,7 +64,7 @@ public class LoginViewModel : BaseViewModel
     Command logoutCommand;
     public ICommand LogoutCommand => logoutCommand ??= new Command(async () =>
         {
-            // Med credit til Sofus S.
+            // Credit til Sofus S. for denne løsning
             var url = $"https://{AuthConfig.Domain}/v2/logout?client_id={AuthConfig.ClientId}&returnTo={UrlEncoder.Default.Encode(_client.Options.PostLogoutRedirectUri)}";
             var browserOptions = new BrowserOptions(url, _client.Options.PostLogoutRedirectUri ?? string.Empty);
             var res = await _client.Options.Browser.InvokeAsync(browserOptions);
